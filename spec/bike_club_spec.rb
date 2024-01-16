@@ -177,17 +177,22 @@ RSpec.describe BikeClub do
 
     describe '#finish_group_ride(biker, finish_time)' do
         it 'logs the ride with the biker and calculates their finish time' do
-            finish_time = "11:04"
+            finish_time = double("11:04")
+
+            allow(@biker).to receive(:finish_time).and_return(finish_time)
             
             allow(@bike_club.record_group_ride(@ride1)).to receive(:start_time).and_return("10:04")
 
             @bike_club.record_group_ride(@ride1)
 
-            @bike_club.finish_group_ride(@biker, finish_time)
+            @bike_club.finish_group_ride(@biker)
 
             expect(@biker.rides).to eq({@ride1 => [60.0]})
         end
     end
+
+
+
 
             
 
