@@ -13,7 +13,7 @@ RSpec.describe Biker do
         it 'has a name' do
             biker = Biker.new("Kenny", 30)
 
-            expect(biker.name).to be("Kenny")
+            expect(biker.name).to eq("Kenny")
         end
 
         it 'has a max distance' do
