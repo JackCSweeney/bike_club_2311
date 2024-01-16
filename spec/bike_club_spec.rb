@@ -138,6 +138,31 @@ RSpec.describe BikeClub do
             expect(bike_club.bikers_eligible(ride2)).to eq([biker, biker2])
         end
     end
+
+    before do
+        @bike_club = BikeClub.new("Club")
+        @biker = Biker.new("Kenny", 30)
+        @biker2 = Biker.new("Athena", 15)
+        @ride1 = Ride.new({name: "Walnut Creek Trail", distance: 10.7, loop: false, terrain: :hills})
+        @ride2 = Ride.new({name: "Town Lake", distance: 14.9, loop: true, terrain: :gravel})
+        @bike_club.add_biker(@biker)
+        @bike_club.add_biker(@biker2)
+    end
+
+    describe '#record_group_ride(ride)' do
+        it 'returns a hash with start_time, ride, and members as the keys' do
+            expect(@bike_club.record_group_ride(@ride2).keys).to eq([start_time:, ride:, members:])
+        end
+
+        it 'records a start time for a group ride' do
+            time = double('9:00AM')
+
+            allow(time).to receive(:start_time).and_return('9:00AM')
+
+            expect(@bike_club.record_group_ride(@ride2)[:start_time]).to eq(('9:00AM'))
+        end
+    end
+
             
 
 end
