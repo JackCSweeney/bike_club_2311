@@ -31,7 +31,7 @@ class Biker
     end
 
     def finish_time
-        Time.now.strftime("%H:%M")
+        Time.now.to_i
     end
 
 end

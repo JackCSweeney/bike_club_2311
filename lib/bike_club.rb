@@ -7,6 +7,7 @@ class BikeClub
     def initialize(name)
         @name = name
         @bikers = []
+        @group_rides = []
     end
 
     def add_biker(biker)
@@ -37,16 +38,23 @@ class BikeClub
 
     def bikers_eligible(ride)
         @bikers.find_all do |biker|
-            biker.log_ride(ride, 'Eligibility Test')
+            biker.acceptable_terrain.include?(ride.terrain) && biker.max_distance >= ride.total_distance
         end
     end
 
     def record_group_ride(ride)
         group_ride = {}
-        group_ride[:start_time] = Time.now.to_s
+        group_ride[:start_time] = Time.now.to_i
         group_ride[:ride] = ride
         group_ride[:members] = bikers_eligible(ride)
+        @group_rides << group_ride
         group_ride
     end
+
+    def finish_group_ride(biker, group_ride)
+        finish_time = biker.finish_time
+        total_time = (((group_ride[:start_time] - finish_time).to_f / 60.0) / 60.0).round(1)
+        biker.log_ride(group_ride[:ride], total_time)
+    end 
 
 end
