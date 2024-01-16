@@ -145,23 +145,36 @@ RSpec.describe BikeClub do
         @biker2 = Biker.new("Athena", 15)
         @ride1 = Ride.new({name: "Walnut Creek Trail", distance: 10.7, loop: false, terrain: :hills})
         @ride2 = Ride.new({name: "Town Lake", distance: 14.9, loop: true, terrain: :gravel})
+        @biker.learn_terrain!(:gravel)
+        @biker.learn_terrain!(:hills)
+        @biker2.learn_terrain!(:gravel)
+        @biker2.learn_terrain!(:hills)
         @bike_club.add_biker(@biker)
         @bike_club.add_biker(@biker2)
     end
 
     describe '#record_group_ride(ride)' do
         it 'returns a hash with start_time, ride, and members as the keys' do
-            expect(@bike_club.record_group_ride(@ride2).keys).to eq([start_time:, ride:, members:])
+            expect(@bike_club.record_group_ride(@ride2).keys).to eq([:start_time, :ride, :members])
         end
 
         it 'records a start time for a group ride' do
-            time = double('9:00AM')
+            expect(@bike_club.record_group_ride(@ride2)[:start_time]).to eq((Time.now.to_s))
+        end
 
-            allow(time).to receive(:start_time).and_return('9:00AM')
+        it 'records which ride the group when on' do
+            expect(@bike_club.record_group_ride(@ride2)[:ride]).to eq(@ride2)
+        end
 
-            expect(@bike_club.record_group_ride(@ride2)[:start_time]).to eq(('9:00AM'))
+        it 'records all bike club members on the group ride' do
+            expect(@bike_club.record_group_ride(@ride2)[:members]).to eq([@biker, @biker2])
+        end
+
+        it 'will not add a ride to the group ride if they are not eligible' do
+            expect(@bike_club.record_group_ride(@ride1)[:members]).to eq([@biker])
         end
     end
+
 
             
 
