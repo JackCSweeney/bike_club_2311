@@ -54,7 +54,7 @@ RSpec.describe BikeClub do
             biker2.learn_terrain!(:gravel)
             biker2.learn_terrain!(:hills)
             
-            biker2.log_ride(ride1, 91.1)
+            biker2.log_ride(ride2, 91.1)
             
             biker.log_ride(ride1, 92.5)
             biker.log_ride(ride2, 60.9)
@@ -80,7 +80,7 @@ RSpec.describe BikeClub do
             biker2.learn_terrain!(:gravel)
             biker2.learn_terrain!(:hills)
             
-            biker2.log_ride(ride1, 91.1)
+            biker2.log_ride(ride2, 51.1)
             
             biker.log_ride(ride1, 92.5)
             biker.log_ride(ride2, 60.9)
@@ -107,14 +107,14 @@ RSpec.describe BikeClub do
             biker2.learn_terrain!(:gravel)
             biker2.learn_terrain!(:hills)
             
-            biker2.log_ride(ride1, 91.1)
+            biker2.log_ride(ride2, 91.1)
             
             biker.log_ride(ride1, 92.5)
             biker.log_ride(ride2, 60.9)
             biker.log_ride(ride2, 61.6)
 
-            expect(bikers_that_completed(ride1)).to eq([biker, biker2])
-            expect(bikers_that_completed(ride1)).to eq([biker])
+            expect(bike_club.bikers_that_completed(ride2)).to eq([biker, biker2])
+            expect(bike_club.bikers_that_completed(ride1)).to eq([biker])
         end
     end
             
