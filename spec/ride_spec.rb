@@ -1,7 +1,7 @@
 require './lib/ride'
 require 'pry'
 
-Rspec.describe Ride do
+RSpec.describe Ride do
     describe '#initialize' do
         it 'exists' do
             ride1 = Ride.new({name: "Walnut Creek Trail", distance: 10.7, loop: false, terrain: :hills})
