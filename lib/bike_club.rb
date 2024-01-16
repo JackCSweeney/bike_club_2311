@@ -34,4 +34,10 @@ class BikeClub
         end
     end
 
+    def bikers_eligible(ride)
+        @bikers.find_all do |biker|
+            biker.log_ride(ride, 'Eligibility Test')
+        end
+    end
+
 end
