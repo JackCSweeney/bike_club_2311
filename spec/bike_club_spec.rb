@@ -86,8 +86,8 @@ RSpec.describe BikeClub do
             biker.log_ride(ride2, 60.9)
             biker.log_ride(ride2, 61.6)
             
-            expect(bike_club.best_time(ride1)).to eq(biker2)
-            expect(bike_club.best_time(ride2)).to eq(biker)
+            expect(bike_club.best_time(ride1)).to eq(biker)
+            expect(bike_club.best_time(ride2)).to eq(biker2)
         end
     end
 

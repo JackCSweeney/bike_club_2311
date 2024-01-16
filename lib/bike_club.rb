@@ -29,7 +29,9 @@ class BikeClub
     end
 
     def best_time(ride)
-        
+        bikers_that_completed(ride).min_by do |biker|
+            biker.personal_record(ride)
+        end
     end
 
 end
