@@ -1,3 +1,4 @@
+require 'time'
 class Biker
 
     attr_reader :name,
@@ -27,6 +28,10 @@ class Biker
     def personal_record(ride)
         return false unless @rides[ride] != nil
         @rides[ride].min 
+    end
+
+    def finish_time
+        Time.now.strftime("%H:%M")
     end
 
 end
