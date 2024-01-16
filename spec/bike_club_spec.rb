@@ -40,10 +40,14 @@ RSpec.describe BikeClub do
 
     describe '#most_rides' do
         it 'can tell you which biker in the club has logged the most rides' do
+            bike_club = BikeClub.new("Club")
             biker = Biker.new("Kenny", 30)
             biker2 = Biker.new("Athena", 15)
             ride1 = Ride.new({name: "Walnut Creek Trail", distance: 10.7, loop: false, terrain: :hills})
             ride2 = Ride.new({name: "Town Lake", distance: 14.9, loop: true, terrain: :gravel})
+
+            bike_club.add_biker(biker)
+            bike_club.add_biker(biker2)
 
             biker.learn_terrain!(:gravel)
             biker.learn_terrain!(:hills)
@@ -62,10 +66,14 @@ RSpec.describe BikeClub do
 
     describe '#best_time(ride)' do
         it 'can tell you which biker has the best time on the given ride' do
+            bike_club = BikeClub.new("Club")
             biker = Biker.new("Kenny", 30)
             biker2 = Biker.new("Athena", 15)
             ride1 = Ride.new({name: "Walnut Creek Trail", distance: 10.7, loop: false, terrain: :hills})
             ride2 = Ride.new({name: "Town Lake", distance: 14.9, loop: true, terrain: :gravel})
+
+            bike_club.add_biker(biker)
+            bike_club.add_biker(biker2)
 
             biker.learn_terrain!(:gravel)
             biker.learn_terrain!(:hills)
@@ -82,5 +90,34 @@ RSpec.describe BikeClub do
             expect(bike_club.best_time(ride2)).to eq(biker)
         end
     end
+
+    describe '#bikers_that_completed(ride)' do
+        it 'returns an array of bikers that have completed the given ride' do
+            bike_club = BikeClub.new("Club")
+            biker = Biker.new("Kenny", 30)
+            biker2 = Biker.new("Athena", 15)
+            ride1 = Ride.new({name: "Walnut Creek Trail", distance: 10.7, loop: false, terrain: :hills})
+            ride2 = Ride.new({name: "Town Lake", distance: 14.9, loop: true, terrain: :gravel})
+
+            bike_club.add_biker(biker)
+            bike_club.add_biker(biker2)
+
+            biker.learn_terrain!(:gravel)
+            biker.learn_terrain!(:hills)
+            biker2.learn_terrain!(:gravel)
+            biker2.learn_terrain!(:hills)
+            
+            biker2.log_ride(ride1, 91.1)
+            
+            biker.log_ride(ride1, 92.5)
+            biker.log_ride(ride2, 60.9)
+            biker.log_ride(ride2, 61.6)
+
+            expect(bikers_that_completed(ride1)).to eq([biker, biker2])
+            expect(bikers_that_completed(ride1)).to eq([biker])
+        end
+    end
+            
+
 end
 
