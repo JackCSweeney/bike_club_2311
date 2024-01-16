@@ -117,6 +117,27 @@ RSpec.describe BikeClub do
             expect(bike_club.bikers_that_completed(ride1)).to eq([biker])
         end
     end
+
+    describe '#bikers_eligible(ride)' do
+        it 'gives a list of bikers eligible for a ride' do
+            bike_club = BikeClub.new("Club")
+            biker = Biker.new("Kenny", 30)
+            biker2 = Biker.new("Athena", 15)
+            ride1 = Ride.new({name: "Walnut Creek Trail", distance: 10.7, loop: false, terrain: :hills})
+            ride2 = Ride.new({name: "Town Lake", distance: 14.9, loop: true, terrain: :gravel})
+
+            bike_club.add_biker(biker)
+            bike_club.add_biker(biker2)
+
+            biker.learn_terrain!(:gravel)
+            biker.learn_terrain!(:hills)
+            biker2.learn_terrain!(:gravel)
+            biker2.learn_terrain!(:hills)
+
+            expect(bike_club.bikers_eligible(ride1)).to eq([biker])
+            expect(bike_club.bikers_eligible(ride2)).to eq([biker, biker2])
+        end
+    end
             
 
 end
