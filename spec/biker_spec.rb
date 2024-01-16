@@ -103,6 +103,21 @@ RSpec.describe Biker do
             expect(biker.personal_record(ride1)).to eq(91.1)
             expect(biker.personal_record(ride2)).to eq(60.9)
         end
+
+        it 'will return false if the biker has not completed the ride' do
+            biker = Biker.new("Kenny", 30)
+            ride1 = Ride.new({name: "Walnut Creek Trail", distance: 10.7, loop: false, terrain: :hills})
+            ride2 = Ride.new({name: "Town Lake", distance: 14.9, loop: true, terrain: :gravel})
+
+            biker.learn_terrain!(:hills)
+            biker.log_ride(ride1, 92.5)
+            biker.log_ride(ride1, 91.1)
+            biker.log_ride(ride2, 60.9)
+            biker.log_ride(ride2, 61.6)
+
+            expect(biker.personal_record(ride1)).to eq(91.1)
+            expect(biker.personal_record(ride2)).to eq(false)
+        end
     end
 
 end
