@@ -1,3 +1,4 @@
+require 'time'
 class BikeClub
 
     attr_reader :name,
@@ -38,6 +39,14 @@ class BikeClub
         @bikers.find_all do |biker|
             biker.log_ride(ride, 'Eligibility Test')
         end
+    end
+
+    def record_group_ride(ride)
+        group_ride = {}
+        group_ride[:start_time] = Time.now.to_s
+        group_ride[:ride] = ride
+        group_ride[:members] = bikers_eligible(ride)
+        group_ride
     end
 
 end
