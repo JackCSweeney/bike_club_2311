@@ -159,7 +159,7 @@ RSpec.describe BikeClub do
         end
 
         it 'records a start time for a group ride' do
-            expect(@bike_club.record_group_ride(@ride2)[:start_time]).to eq((Time.now.strftime("%H:%M")))
+            expect(@bike_club.record_group_ride(@ride2)[:start_time]).to eq((Time.now.to_i))
         end
 
         it 'records which ride the group when on' do
@@ -175,17 +175,18 @@ RSpec.describe BikeClub do
         end
     end
 
-    describe '#finish_group_ride(biker, finish_time)' do
+    describe '#finish_group_ride(biker, group_ride)' do
         it 'logs the ride with the biker and calculates their finish time' do
-            finish_time = double("11:04")
+            finish_time = 1549057905
 
             allow(@biker).to receive(:finish_time).and_return(finish_time)
             
-            allow(@bike_club.record_group_ride(@ride1)).to receive(:start_time).and_return("10:04")
+            @group_ride = @bike_club.record_group_ride(@ride1)
+            
+            allow(@group_ride).to receive(:start_time).and_return(1549054305)
 
-            @bike_club.record_group_ride(@ride1)
 
-            @bike_club.finish_group_ride(@biker)
+            @bike_club.finish_group_ride(@biker, @group_ride)
 
             expect(@biker.rides).to eq({@ride1 => [60.0]})
         end

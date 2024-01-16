@@ -124,7 +124,7 @@ RSpec.describe Biker do
         it 'logs the current time' do
             biker = Biker.new("Kenny", 30)
 
-            expect(biker.finish_time).to eq(Time.now.strftime("%H:%M"))
+            expect(biker.finish_time).to eq(Time.now.to_i)
         end
     end
 
